@@ -9,7 +9,7 @@ async function addHandler(session) {
   };
 
   try {
-    const response = await fetch('/api/add', {
+    const response = await fetch('/api/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -23,32 +23,9 @@ async function addHandler(session) {
     const result = await response.json();
     console.log(result.message);
   } catch (error) {
-    console.log('something wrong with API:', error)
+    console.log('Something went wrong with API:', error);
   }
 }
-
-
-
-async function postHandler(session) {
-  const userInfo = {
-    name: 'OuOSama',
-    email: session.user.email,
-    role: 'Admin'
-  };
-
-  try {
-    const response = await fetch('/api/new', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ collectionName: 'user', documentName: 'info', subCollection:'test', subName:'in test', docData: userInfo })
-    });
-  } catch (error) {
-    console.log('something wrong with API:', error)
-  }
-}
-
 
 
 export default function Page() {
@@ -56,7 +33,6 @@ export default function Page() {
   return (
     <div className='flex h-screen w-full items-center justify-center flex-col'>
       <button className='btn' onClick={() => addHandler(session)}>Add Test</button>
-      <button className='btn mt-5' onClick={() => postHandler(session)}>test add with doc name</button>
     </div>
   );
 }
